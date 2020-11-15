@@ -1,0 +1,43 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "rootDir": "src",
+    "outDir": "lib",
+    "declaration": true,
+    "declarationMap": true,
+    "declarationDir": "lib/types",
+    "sourceMap": true,
+    "strict": true,
+    "module": "es6",
+    "target": "es5",
+    "lib": [
+      "ES5",
+      "ES2015"
+    ],
+    "moduleResolution": "node",
+    "allowJs": false,
+    "esModuleInterop": true,
+    "paths": {
+      "@src/*": [
+        "src/*"
+      ],
+      "@tests/*": [
+        "src/__tests__/*"
+      ],
+      "@lib/*": [
+        "lib/*"
+      ]
+    },
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "packages/*/build"
+  ]
+}

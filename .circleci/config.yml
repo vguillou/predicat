@@ -1,0 +1,118 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@4.1.0
+
+definitions:
+  const_working_directory: &const_working_directory /mnt/ramdisk
+
+  step_attach_workspace: &step_attach_workspace
+    attach_workspace:
+      at: *const_working_directory
+
+  job_defaults: &job_defaults
+    executor: node/default
+    working_directory: *const_working_directory
+
+  workflow_lint_test_scan_build: &workflow_lint_test_scan_build
+    jobs:
+      - Install_dependencies
+      - Lint:
+          requires:
+            - Install_dependencies
+      - Test:
+          requires:
+            - Install_dependencies
+      - Scan_for_vulnerabilities:
+          requires:
+            - Install_dependencies
+      - Build:
+          requires:
+            - Install_dependencies
+
+jobs:
+  Install_dependencies:
+    <<: *job_defaults
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: yarn
+          app-dir: *const_working_directory
+      - persist_to_workspace:
+          root: *const_working_directory
+          paths:
+            - node_modules
+
+  Lint:
+    <<: *job_defaults
+    steps:
+      - checkout
+      - <<: *step_attach_workspace
+      - run:
+          name: Lint sources
+          command: yarn run ci:lint
+
+  Test:
+    <<: *job_defaults
+    steps:
+      - checkout
+      - <<: *step_attach_workspace
+      - run:
+          name: Test
+          command: yarn ci:test
+      - store_test_results:
+          path: reports/junit
+      - store_artifacts:
+          path: reports/junit
+
+  Scan_for_vulnerabilities:
+    <<: *job_defaults
+    steps:
+      - checkout
+      - <<: *step_attach_workspace
+      - run:
+          name: Scan for vulnerabilities
+          command: yarn run ci:scan
+
+  Build:
+    <<: *job_defaults
+    steps:
+      - checkout
+      - <<: *step_attach_workspace
+      - run:
+          name: Build
+          command: yarn run build
+      - persist_to_workspace:
+          root: *const_working_directory
+          paths:
+            - node_modules
+      - store_artifacts:
+          path: lib
+
+workflows:
+  version: 2
+
+  Push:
+    <<: *workflow_lint_test_scan_build
+
+  #Nightly:
+  #  <<: *workflow_lint_test_scan_build
+  #  triggers:
+  #    - schedule:
+  #        cron: "0 3 * * *"
+  #        filters:
+  #          branches:
+  #            only:
+  #              - master
+  #              - develop
+
+  Weekly:
+    <<: *workflow_lint_test_scan_build
+    triggers:
+      - schedule:
+          cron: "0 4 * * 0"
+          filters:
+            branches:
+              only:
+                - master
+                - develop

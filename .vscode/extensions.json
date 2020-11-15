@@ -1,0 +1,19 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "streetsidesoftware.code-spell-checker",
+    "editorconfig.editorconfig",
+    "coenraads.bracket-pair-colorizer-2",
+    "mhutchie.git-graph",
+    "eamodio.gitlens",
+    "techer.open-in-browser",
+    "yzhang.markdown-all-in-one",
+    "eriklynd.json-tools",
+    "ms-azuretools.vscode-docker",
+    "rbbit.typescript-hero"
+  ],
+  "unwantedRecommendations": [
+    "esbenp.prettier-vscode",
+    "hookyqr.beautify"
+  ]
+}

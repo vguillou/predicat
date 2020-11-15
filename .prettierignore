@@ -1,0 +1,13 @@
+*.idea
+*.iml
+*.vscode
+!.*
+/dist/
+/lib/
+/docs/
+node_modules/
+types/
+typings/
+package.json
+package-lock.json
+yarn.lock
