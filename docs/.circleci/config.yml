@@ -1,0 +1,16 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@4.1.0
+
+jobs:
+  NoOp:
+    executor: node/default
+    steps:
+      - run: echo "Just here to prevent error \"No .circleci/config.yml was found in your project.\""
+
+workflows:
+  version: 2
+  NoOp:
+    jobs:
+      - NoOp

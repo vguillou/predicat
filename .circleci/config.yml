@@ -1,0 +1,223 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@4.1.0
+
+definitions:
+  const_working_directory: &const_working_directory /mnt/ramdisk
+  const_tags_regexp: &const_tags_regexp /^v(\d)+\.(\d)+.(\d)+$/
+  const_git_documentation_branch: &const_git_documentation_branch gh-pages
+
+  filter_only_for_tags: &filter_only_for_tags
+    filters:
+      tags:
+        only: *const_tags_regexp
+      branches:
+        ignore: /.*/
+
+  requires_dependencies: &requires_dependencies
+    requires:
+      - Install_dependencies
+  requires_lint_test_scan_build: &requires_build_test_lint_scan
+    requires:
+      - Lint
+      - Test
+      - Scan_for_vulnerabilities
+      - Build
+
+  step_attach_workspace: &step_attach_workspace
+    attach_workspace:
+      at: *const_working_directory
+
+  job_defaults: &job_defaults
+    executor: node/default
+    working_directory: *const_working_directory
+
+  workflow_build: &workflow_build
+    jobs:
+      - Install_dependencies
+      - Lint:
+          <<: *requires_dependencies
+      - Test:
+          <<: *requires_dependencies
+      - Scan_for_vulnerabilities:
+          <<: *requires_dependencies
+      - Build:
+          <<: *requires_dependencies
+
+  workflow_publish: &workflow_publish
+    jobs:
+      - Install_dependencies:
+          <<: *filter_only_for_tags
+      - Lint:
+          <<: *filter_only_for_tags
+          <<: *requires_dependencies
+      - Test:
+          <<: *filter_only_for_tags
+          <<: *requires_dependencies
+      - Scan_for_vulnerabilities:
+          <<: *filter_only_for_tags
+          <<: *requires_dependencies
+      - Build:
+          <<: *filter_only_for_tags
+          <<: *requires_dependencies
+      - Publish_lib:
+          <<: *filter_only_for_tags
+          <<: *requires_build_test_lint_scan
+          context:
+            - npm-publishing
+      - Generate_docs:
+          <<: *filter_only_for_tags
+          <<: *requires_build_test_lint_scan
+      - Deploy_docs:
+          <<: *filter_only_for_tags
+          requires:
+            - Generate_docs
+
+jobs:
+  Install_dependencies:
+    <<: *job_defaults
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: yarn
+          app-dir: *const_working_directory
+      - persist_to_workspace:
+          root: *const_working_directory
+          paths:
+            - node_modules
+
+  Lint:
+    <<: *job_defaults
+    steps:
+      - checkout
+      - <<: *step_attach_workspace
+      - run:
+          name: Lint sources
+          command: yarn run ci:lint
+
+  Test:
+    <<: *job_defaults
+    steps:
+      - checkout
+      - <<: *step_attach_workspace
+      - run:
+          name: Test
+          command: yarn run ci:test
+      - store_test_results:
+          path: reports/junit
+      - store_artifacts:
+          path: reports/junit
+
+  Scan_for_vulnerabilities:
+    <<: *job_defaults
+    steps:
+      - checkout
+      - <<: *step_attach_workspace
+      - run:
+          name: Scan for vulnerabilities
+          command: yarn run ci:scan
+
+  Build:
+    <<: *job_defaults
+    steps:
+      - checkout
+      - <<: *step_attach_workspace
+      - run:
+          name: Build
+          command: yarn run build
+      - persist_to_workspace:
+          root: *const_working_directory
+          paths:
+            - lib
+      - store_artifacts:
+          path: lib
+
+  Publish_lib:
+    <<: *job_defaults
+    steps:
+      - checkout
+      - <<: *step_attach_workspace
+      - run:
+          name: Authenticate with registry
+          command: |
+            echo "registry=https://$NPM_REGISTRY_FQDN/" > ~/.npmrc
+            echo "//$NPM_REGISTRY_FQDN/:_authToken=${NPM_REGISTRY_AUTOMATION_TOKEN}" >> ~/.npmrc
+      - run:
+          name: Publish package
+          command: npm publish
+
+  Generate_docs:
+    <<: *job_defaults
+    steps:
+      - checkout
+      - <<: *step_attach_workspace
+      - run:
+          name: Generate documentation
+          command: yarn run docs
+      - persist_to_workspace:
+          root: *const_working_directory
+          paths:
+            - docs
+      - store_artifacts:
+          path: docs
+
+  Deploy_docs:
+    <<: *job_defaults
+    steps:
+      - checkout
+      - <<: *step_attach_workspace
+      - run:
+          name: Configure git
+          command: |
+            git config user.email "vgui-ci@fake.email"
+            git config user.name "vgui-ci"
+      - add_ssh_keys:
+          fingerprints:
+            - "80:29:55:1f:57:21:ad:33:09:a9:31:04:87:aa:38:13"
+      - run:
+          name: Create an empty documentation branch if not exist
+          command: |
+            if git rev-parse --verify $GIT_DOCUMENTATION_BRANCH ; then exit 0 ; fi
+            git checkout --orphan $GIT_DOCUMENTATION_BRANCH
+            git rm -rf .
+            git commit -m '[skip ci] docs(docs): creating documentation branch' --allow-empty
+            git push origin $GIT_DOCUMENTATION_BRANCH
+            git checkout $GIT_CURRENT_REVISION
+          environment:
+            GIT_DOCUMENTATION_BRANCH: *const_git_documentation_branch
+            GIT_CURRENT_REVISION: <<pipeline.git.revision>>
+      - run:
+          name: Deploy documentation
+          command: yarn run cd:deploy-docs
+
+workflows:
+  version: 2
+
+  Push:
+    <<: *workflow_build
+
+  Publish:
+    <<: *workflow_publish
+
+  #Nightly:
+  #  <<: *workflow_build
+  #  triggers:
+  #    - schedule:
+  #        cron: "0 3 * * *"
+  #        filters:
+  #          branches:
+  #            only:
+  #              - master
+  #              - develop
+
+  Weekly:
+    <<: *workflow_build
+    triggers:
+      - schedule:
+          cron: "0 4 * * 0"
+          filters:
+            branches:
+              only:
+                - master
+                - develop
