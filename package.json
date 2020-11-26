@@ -1,6 +1,6 @@
 {
   "name": "predicat",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "A cute library to create, combine, and enjoy common predicates",
   "author": {
     "name": "Vincent Guillou",
