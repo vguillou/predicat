@@ -1,7 +1,8 @@
 version: 2.1
 
 orbs:
-  node: circleci/node@4.1.0
+  node: circleci/node@4.1
+  slack: circleci/slack@4.1
 
 definitions:
   const_working_directory: &const_working_directory /mnt/ramdisk
@@ -25,9 +26,25 @@ definitions:
       - Scan_for_vulnerabilities
       - Build
 
+  context_slack: &context_slack
+    context:
+      - slack-integration
+  context_slack_npm: &context_slack_npm
+    context:
+      - slack-integration
+      - npm-publishing
+
   step_attach_workspace: &step_attach_workspace
     attach_workspace:
       at: *const_working_directory
+  step_slack_notify_fail: &step_slack_notify_fail
+    slack/notify:
+      event: fail
+      template: basic_fail_1
+  step_slack_notify_pass: &step_slack_notify_pass
+    slack/notify:
+      event: pass
+      template: success_tagged_deploy_1
 
   job_defaults: &job_defaults
     executor: node/default
@@ -35,44 +52,55 @@ definitions:
 
   workflow_build: &workflow_build
     jobs:
-      - Install_dependencies
+      - Install_dependencies:
+          <<: *context_slack
       - Lint:
           <<: *requires_dependencies
+          <<: *context_slack
       - Test:
           <<: *requires_dependencies
+          <<: *context_slack
       - Scan_for_vulnerabilities:
           <<: *requires_dependencies
+          <<: *context_slack
       - Build:
           <<: *requires_dependencies
+          <<: *context_slack
 
   workflow_publish: &workflow_publish
     jobs:
       - Install_dependencies:
           <<: *filter_only_for_tags
+          <<: *context_slack
       - Lint:
           <<: *filter_only_for_tags
           <<: *requires_dependencies
+          <<: *context_slack
       - Test:
           <<: *filter_only_for_tags
           <<: *requires_dependencies
+          <<: *context_slack
       - Scan_for_vulnerabilities:
           <<: *filter_only_for_tags
           <<: *requires_dependencies
+          <<: *context_slack
       - Build:
           <<: *filter_only_for_tags
           <<: *requires_dependencies
+          <<: *context_slack
       - Publish_lib:
           <<: *filter_only_for_tags
           <<: *requires_build_test_lint_scan
-          context:
-            - npm-publishing
+          <<: *context_slack_npm
       - Generate_docs:
           <<: *filter_only_for_tags
           <<: *requires_build_test_lint_scan
+          <<: *context_slack
       - Deploy_docs:
           <<: *filter_only_for_tags
           requires:
             - Generate_docs
+          <<: *context_slack
 
 jobs:
   Install_dependencies:
@@ -86,6 +114,7 @@ jobs:
           root: *const_working_directory
           paths:
             - node_modules
+      - <<: *step_slack_notify_fail
 
   Lint:
     <<: *job_defaults
@@ -95,6 +124,7 @@ jobs:
       - run:
           name: Lint sources
           command: yarn run ci:lint
+      - <<: *step_slack_notify_fail
 
   Test:
     <<: *job_defaults
@@ -108,6 +138,7 @@ jobs:
           path: reports/junit
       - store_artifacts:
           path: reports/junit
+      - <<: *step_slack_notify_fail
 
   Scan_for_vulnerabilities:
     <<: *job_defaults
@@ -117,6 +148,7 @@ jobs:
       - run:
           name: Scan for vulnerabilities
           command: yarn run ci:scan
+      - <<: *step_slack_notify_fail
 
   Build:
     <<: *job_defaults
@@ -132,6 +164,8 @@ jobs:
             - lib
       - store_artifacts:
           path: lib
+      - <<: *step_slack_notify_fail
+      - <<: *step_slack_notify_pass
 
   Publish_lib:
     <<: *job_defaults
@@ -146,6 +180,8 @@ jobs:
       - run:
           name: Publish package
           command: npm publish
+      - <<: *step_slack_notify_fail
+      - <<: *step_slack_notify_pass
 
   Generate_docs:
     <<: *job_defaults
@@ -161,6 +197,7 @@ jobs:
             - docs
       - store_artifacts:
           path: docs
+      - <<: *step_slack_notify_fail
 
   Deploy_docs:
     <<: *job_defaults
@@ -190,6 +227,7 @@ jobs:
       - run:
           name: Deploy documentation
           command: yarn run cd:deploy-docs
+      - <<: *step_slack_notify_fail
 
 workflows:
   version: 2
