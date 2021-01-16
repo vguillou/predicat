@@ -19,12 +19,6 @@ definitions:
   requires_dependencies: &requires_dependencies
     requires:
       - Install_dependencies
-  requires_lint_test_scan_build: &requires_build_test_lint_scan
-    requires:
-      - Lint
-      - Test
-      - Scan_for_vulnerabilities
-      - Build
 
   context_slack: &context_slack
     context:
@@ -67,7 +61,7 @@ definitions:
           <<: *requires_dependencies
           <<: *context_slack
       - Generate_docs:
-          <<: *requires_build_test_lint_scan
+          <<: *requires_dependencies
           <<: *context_slack
 
   workflow_publish: &workflow_publish
@@ -91,19 +85,24 @@ definitions:
           <<: *filter_only_for_tags
           <<: *requires_dependencies
           <<: *context_slack
-      - Publish_lib:
-          <<: *filter_only_for_tags
-          <<: *requires_build_test_lint_scan
-          <<: *context_slack_npm
       - Generate_docs:
           <<: *filter_only_for_tags
-          <<: *requires_build_test_lint_scan
+          <<: *requires_dependencies
           <<: *context_slack
       - Deploy_docs:
           <<: *filter_only_for_tags
           requires:
+            - Lint
+            - Test
+            - Scan_for_vulnerabilities
+            - Build
             - Generate_docs
           <<: *context_slack
+      - Publish_lib:
+          <<: *filter_only_for_tags
+          requires:
+            - Deploy_docs
+          <<: *context_slack_npm
 
 jobs:
   Install_dependencies:
