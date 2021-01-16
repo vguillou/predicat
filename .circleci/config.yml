@@ -139,7 +139,7 @@ jobs:
       - store_test_results:
           path: reports/junit
       - store_artifacts:
-          path: reports/junit
+          path: reports
       - <<: *step_slack_notify_fail
 
   Scan_for_vulnerabilities:
