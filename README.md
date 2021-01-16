@@ -2,6 +2,13 @@
 
 > A cute library to create, combine, and enjoy common predicates. 🐱
 
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-blue?style=flat-square)](https://github.com/vguillou/predicat/graphs/commit-activity)
+[![Latest documentation](https://img.shields.io/badge/Latest-docs-blue?style=flat-square)](https://vguillou.github.io/predicat/latest/)
+[![GitHub license](https://img.shields.io/github/license/vguillou/predicat?color=blue&style=flat-square)](https://github.com/vguillou/predicat/blob/master/LICENSE)
+[![Build status](https://img.shields.io/circleci/build/gh/vguillou/predicat/master?style=flat-square)](https://app.circleci.com/pipelines/github/vguillou/predicat)
+[![Npm version](https://img.shields.io/npm/v/predicat?color=orange&style=flat-square)](https://www.npmjs.com/package/predicat)
+[![Npm Downloads](https://img.shields.io/npm/dw/predicat?color=orange&style=flat-square)](https://www.npmjs.com/package/predicat)
+
 - [Installation](#installation)
 - [Usage](#usage)
   - [Available Predicates and Type-Guards](#available-predicates-and-type-guards)
