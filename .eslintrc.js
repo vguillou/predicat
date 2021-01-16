@@ -1,6 +1,9 @@
 module.exports = {
   root: true,
-  plugins: ['prettier'],
+  plugins: [
+    'eslint-plugin-tsdoc',
+    'prettier',
+  ],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/eslint-recommended',
@@ -18,6 +21,9 @@ module.exports = {
     project: "tsconfig.json"
   },
   rules: {
+    // TSDoc linting
+    'tsdoc/syntax': 'error',
+
     // Code formatting rules. See https://prettier.io/docs/en/options.html
     'prettier/prettier': [
       'warn',
