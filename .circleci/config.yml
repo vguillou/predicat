@@ -66,6 +66,9 @@ definitions:
       - Build:
           <<: *requires_dependencies
           <<: *context_slack
+      - Generate_docs:
+          <<: *requires_build_test_lint_scan
+          <<: *context_slack
 
   workflow_publish: &workflow_publish
     jobs:

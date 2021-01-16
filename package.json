@@ -19,7 +19,7 @@
   ],
   "scripts": {
     "build": "rimraf lib && rollup -c",
-    "docs": "typedoc --excludeExternals --externalPattern '**/__tests__/**/*' --excludeNotExported --includeVersion --out docs/v$npm_package_version --theme minimal --mode file src",
+    "docs": "typedoc --excludePrivate --excludeNotDocumented --excludeExternals --exclude '**/__tests__/**/*' --includeVersion --out docs/v$npm_package_version --theme minimal src/index.ts",
     "lint": "eslint . --ext ts --fix",
     "test": "jest",
     "test:watch": "node --inspect node_modules/.bin/jest --watchAll --runInBand",
