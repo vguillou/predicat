@@ -41,7 +41,7 @@ definitions:
     slack/notify:
       event: fail
       template: basic_fail_1
-  step_slack_notify_pass: &step_slack_notify_pass
+  step_slack_notify_deploy_success: &step_slack_notify_deploy_success
     slack/notify:
       event: pass
       template: success_tagged_deploy_1
@@ -165,7 +165,6 @@ jobs:
       - store_artifacts:
           path: lib
       - <<: *step_slack_notify_fail
-      - <<: *step_slack_notify_pass
 
   Publish_lib:
     <<: *job_defaults
@@ -181,7 +180,7 @@ jobs:
           name: Publish package
           command: npm publish
       - <<: *step_slack_notify_fail
-      - <<: *step_slack_notify_pass
+      - <<: *step_slack_notify_deploy_success
 
   Generate_docs:
     <<: *job_defaults
