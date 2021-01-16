@@ -216,8 +216,8 @@ jobs:
       - run:
           name: Create an empty documentation branch if not exist
           command: |
-            if git rev-parse --verify $GIT_DOCUMENTATION_BRANCH ; then exit 0 ; fi
-            git checkout --orphan $GIT_DOCUMENTATION_BRANCH
+            if git rev-parse --verify origin/$GIT_DOCUMENTATION_BRANCH ; then exit 0 ; fi
+            git checkout --orphan $GIT_DOCUMENTATION_BRANCH --track remote/$GIT_DOCUMENTATION_BRANCH
             git rm -rf .
             git commit -m '[skip ci] docs(docs): creating documentation branch' --allow-empty
             git push origin $GIT_DOCUMENTATION_BRANCH
