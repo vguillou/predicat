@@ -6,7 +6,7 @@ import { isBoolean } from './type-guards'
  * @returns `true` if all given predicates also do, `false` otherwise.
  */
 export function every<T>(...predicates: Array<boolean | Predicate<T>>): Predicate<T> {
-  return (param: T) => (predicates ?? []).every((p) => (isBoolean(p) ? p : p(param)))
+  return (param: T) => predicates.every((p) => (isBoolean(p) ? p : p(param)))
 }
 /**
  * Alias for `every`.
@@ -19,7 +19,7 @@ export const allOf = every
  * @returns `true` if one or more given predicates also do, `false` otherwise.
  */
 export function some<T>(...predicates: Array<boolean | Predicate<T>>): Predicate<T> {
-  return (param: T) => (predicates ?? []).some((p) => (isBoolean(p) ? p : p(param)))
+  return (param: T) => predicates.some((p) => (isBoolean(p) ? p : p(param)))
 }
 /**
  * Alias for `some`.
