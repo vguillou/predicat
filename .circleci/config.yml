@@ -160,6 +160,7 @@ jobs:
   Upload_test_coverage:
     <<: *job_defaults
     steps:
+      - checkout
       - <<: *step_attach_workspace
       - codecov/upload:
           file: *const_path_coverage_file
