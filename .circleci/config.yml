@@ -161,6 +161,9 @@ jobs:
     <<: *job_defaults
     steps:
       - <<: *step_attach_workspace
+      - run:
+          name: ls -la
+          command: ls -la
       - coveralls/upload:
           path_to_lcov: *const_path_coverage_file
       - <<: *step_slack_notify_fail
