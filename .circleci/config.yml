@@ -3,7 +3,7 @@ version: 2.1
 orbs:
   node: circleci/node@4.1
   slack: circleci/slack@4.1
-  coveralls: coveralls/coveralls@1.0
+  codecov: codecov/codecov@1.1
 
 definitions:
   const_path_working_directory: &const_path_working_directory /mnt/ramdisk
@@ -161,8 +161,8 @@ jobs:
     <<: *job_defaults
     steps:
       - <<: *step_attach_workspace
-      - coveralls/upload:
-          path_to_lcov: *const_path_coverage_file
+      - codecov/upload:
+          file: *const_path_coverage_file
       - <<: *step_slack_notify_fail
 
   Scan_for_vulnerabilities:

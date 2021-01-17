@@ -6,7 +6,7 @@
 [![Latest docs](https://img.shields.io/badge/latest-docs-blue?style=flat-square)](https://vguillou.github.io/predicat/latest/)
 [![License](https://img.shields.io/github/license/vguillou/predicat?color=blue&style=flat-square)](https://github.com/vguillou/predicat/blob/master/LICENSE)
 [![Build status](https://img.shields.io/circleci/build/gh/vguillou/predicat/master?style=flat-square)](https://app.circleci.com/pipelines/github/vguillou/predicat)
-[![Coverage](https://img.shields.io/coveralls/github/vguillou/predicat/master?style=flat-square)](https://coveralls.io/github/vguillou/predicat)
+[![Coverage](https://img.shields.io/codecov/c/gh/vguillou/predicat/master?style=flat-square)](https://codecov.io/gh/vguillou/predicat)
 [![Npm version](https://img.shields.io/npm/v/predicat?color=orange&style=flat-square)](https://www.npmjs.com/package/predicat)
 [![Npm Downloads](https://img.shields.io/npm/dw/predicat?color=orange&style=flat-square)](https://www.npmjs.com/package/predicat)
 
