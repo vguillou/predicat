@@ -25,7 +25,7 @@
     "test:watch": "node --inspect node_modules/.bin/jest --watchAll --runInBand",
     "scan": "retire --colors",
     "ci:lint": "eslint . --ext ts --format junit -o reports/junit/ts-lint-results.xml",
-    "ci:test": "JEST_JUNIT_OUTPUT_DIR=reports/junit JEST_JUNIT_OUTPUT_NAME=ts-test-results.xml jest --ci --reporters=jest-junit --coverageReporters=lcov",
+    "ci:test": "JEST_JUNIT_OUTPUT_DIR=reports/junit JEST_JUNIT_OUTPUT_NAME=ts-test-results.xml jest --ci --reporters=jest-junit",
     "ci:scan": "retire",
     "cd:deploy-docs": "cp -r docs/v$npm_package_version docs/latest && gh-pages --add --branch ${GIT_DOCUMENTATION_BRANCH-gh-pages} --dist './docs' --dotfiles --message \"[skip ci] docs(docs): adding v$npm_package_version to gh-pages\""
   },
