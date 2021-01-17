@@ -3,9 +3,11 @@ version: 2.1
 orbs:
   node: circleci/node@4.1
   slack: circleci/slack@4.1
+  coveralls: coveralls/coveralls@1.0
 
 definitions:
-  const_working_directory: &const_working_directory /mnt/ramdisk
+  const_path_working_directory: &const_path_working_directory /mnt/ramdisk
+  const_path_coverage_file: &const_path_coverage_file reports/coverage/lcov.info
   const_tags_regexp: &const_tags_regexp /^v(\d)+\.(\d)+.(\d)+$/
   const_git_documentation_branch: &const_git_documentation_branch gh-pages
 
@@ -30,7 +32,7 @@ definitions:
 
   step_attach_workspace: &step_attach_workspace
     attach_workspace:
-      at: *const_working_directory
+      at: *const_path_working_directory
   step_slack_notify_fail: &step_slack_notify_fail
     slack/notify:
       event: fail
@@ -42,7 +44,7 @@ definitions:
 
   job_defaults: &job_defaults
     executor: node/default
-    working_directory: *const_working_directory
+    working_directory: *const_path_working_directory
 
   workflow_build: &workflow_build
     jobs:
@@ -53,6 +55,10 @@ definitions:
           <<: *context_slack
       - Test:
           <<: *requires_dependencies
+          <<: *context_slack
+      - Upload_test_coverage:
+          requires:
+            - Test
           <<: *context_slack
       - Scan_for_vulnerabilities:
           <<: *requires_dependencies
@@ -76,6 +82,11 @@ definitions:
       - Test:
           <<: *filter_only_for_tags
           <<: *requires_dependencies
+          <<: *context_slack
+      - Upload_test_coverage:
+          <<: *filter_only_for_tags
+          requires:
+            - Test
           <<: *context_slack
       - Scan_for_vulnerabilities:
           <<: *filter_only_for_tags
@@ -111,9 +122,9 @@ jobs:
       - checkout
       - node/install-packages:
           pkg-manager: yarn
-          app-dir: *const_working_directory
+          app-dir: *const_path_working_directory
       - persist_to_workspace:
-          root: *const_working_directory
+          root: *const_path_working_directory
           paths:
             - node_modules
       - <<: *step_slack_notify_fail
@@ -136,10 +147,22 @@ jobs:
       - run:
           name: Test
           command: yarn run ci:test
+      - persist_to_workspace:
+          root: *const_path_working_directory
+          paths:
+            - *const_path_coverage_file
       - store_test_results:
           path: reports/junit
       - store_artifacts:
           path: reports/junit
+      - <<: *step_slack_notify_fail
+
+  Upload_test_coverage:
+    <<: *job_defaults
+    steps:
+      - <<: *step_attach_workspace
+      - coveralls/upload:
+          path_to_lcov: *const_path_coverage_file
       - <<: *step_slack_notify_fail
 
   Scan_for_vulnerabilities:
@@ -161,7 +184,7 @@ jobs:
           name: Build
           command: yarn run build
       - persist_to_workspace:
-          root: *const_working_directory
+          root: *const_path_working_directory
           paths:
             - lib
       - store_artifacts:
@@ -193,7 +216,7 @@ jobs:
           name: Generate documentation
           command: yarn run docs
       - persist_to_workspace:
-          root: *const_working_directory
+          root: *const_path_working_directory
           paths:
             - docs
       - store_artifacts:
@@ -216,8 +239,8 @@ jobs:
       - run:
           name: Create an empty documentation branch if not exist
           command: |
-            if git rev-parse --verify $GIT_DOCUMENTATION_BRANCH ; then exit 0 ; fi
-            git checkout --orphan $GIT_DOCUMENTATION_BRANCH
+            if git rev-parse --verify origin/$GIT_DOCUMENTATION_BRANCH ; then exit 0 ; fi
+            git checkout --orphan $GIT_DOCUMENTATION_BRANCH --track remote/$GIT_DOCUMENTATION_BRANCH
             git rm -rf .
             git commit -m '[skip ci] docs(docs): creating documentation branch' --allow-empty
             git push origin $GIT_DOCUMENTATION_BRANCH
