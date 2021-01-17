@@ -162,8 +162,8 @@ jobs:
     steps:
       - <<: *step_attach_workspace
       - run:
-          name: ls -la
-          command: ls -la
+          name: cat
+          command: cat reports/coverage/lcov.info
       - coveralls/upload:
           path_to_lcov: *const_path_coverage_file
       - <<: *step_slack_notify_fail
