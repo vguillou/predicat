@@ -1,5 +1,6 @@
 /**
- * Check if the `subject` is a `boolean` (can be used as a type guard).
+ * Check if the `subject` is a `boolean` (can be used as a type guard).<br>
+ * <b style="color: coral;">Will return <code>false</code> if the <code>subject</code> is a <code>Boolean</code> object.</b>
  * @param subject - the variable to check.
  * @returns `true` the given parameter is a `boolean`, `false` otherwise.
  */
@@ -17,7 +18,8 @@ export function isString(subject: unknown): subject is string {
 }
 
 /**
- * Check if the `subject` is a `number` (can be used as a type guard).
+ * Check if the `subject` is a `number` (can be used as a type guard).<br>
+ * <b style="color: coral;">Will return <code>true</code> if the <code>subject</code> is <code>NaN</code>.</b>
  * @param subject - the variable to check.
  * @returns `true` the given parameter is a `number`, `false` otherwise.
  */

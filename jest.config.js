@@ -9,4 +9,8 @@ module.exports = {
   testRegex: '/__tests__/.*.test.ts$',
   collectCoverage: true,
   coverageDirectory: '<rootDir>/reports/coverage',
+  coveragePathIgnorePatterns: [
+    '<rootDir>/src/__tests__/',
+    '<rootDir>/src/__mocks__/',
+  ],
 }

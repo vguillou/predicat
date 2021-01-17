@@ -23,14 +23,16 @@ export const never: Predicate<void> = () => false
 export const nok = never
 
 /**
- * A predicate that verifies if the `subject` is truthy.
+ * A predicate that verifies if the `subject` is truthy.<br>
+ * <b style="color: coral;">Will return <code>true</code> if the <code>subject</code> is <code>new Boolean(false)</code>.</b>
  * @param subject - the variable to check.
  * @returns `true` the `subject` is truthy, `false` otherwise.
  */
 export const isTruthy: Predicate<any> = (subject) => !!subject
 
 /**
- * A predicate that verifies if the `subject` is falsy.
+ * A predicate that verifies if the `subject` is falsy.<br>
+ * <b style="color: coral;">Will return <code>false</code> if the <code>subject</code> is <code>new Boolean(false)</code>.</b>
  * @param subject - the variable to check.
  * @returns `true` the `subject` is falsy, `false` otherwise.
  */
@@ -42,14 +44,16 @@ export const isFalsy: Predicate<any> = (subject) => !subject
 export const not = isFalsy
 
 /**
- * A predicate that verifies if the `subject` is `true`.
+ * A predicate that verifies if the `subject` is `true`.<br>
+ * <b style="color: coral;">Will return <code>false</code> if the <code>subject</code> is <code>new Boolean(true)</code>.</b>
  * @param subject - the variable to check.
  * @returns `true` the `subject` is `true`, `false` otherwise.
  */
 export const isTrue: Predicate<any> = (subject) => subject === true
 
 /**
- * A predicate that verifies if the `subject` is `false`.
+ * A predicate that verifies if the `subject` is `false`.<br>
+ * <b style="color: coral;">Will return <code>false</code> if the <code>subject</code> is <code>new Boolean(false)</code>.</b>
  * @param subject - the variable to check.
  * @returns `true` the `subject` is `false`, `false` otherwise.
  */

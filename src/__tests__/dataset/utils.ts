@@ -11,14 +11,35 @@ export type DataFlags = {
   isTrue: boolean
   isFalsy: boolean
   isFalse: boolean
+  isArray: boolean
+  isBoolean: boolean
+  isMap: boolean
+  isNill: boolean
+  isNull: boolean
+  isNumber: boolean
+  isSet: boolean
+  isString: boolean
+  isUndefined: boolean
 }
 
 export const dataSetFactory = <T>(value: T, flags: Partial<DataFlags> = {}): DataSet<T> => ({
   value,
+
   isTruthy: false,
   isTrue: false,
   isFalsy: false,
   isFalse: false,
+
+  isArray: false,
+  isBoolean: false,
+  isMap: false,
+  isNill: false,
+  isNull: false,
+  isNumber: false,
+  isSet: false,
+  isString: false,
+  isUndefined: false,
+
   ...flags,
 })
 
