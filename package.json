@@ -21,11 +21,11 @@
     "build": "rimraf lib && rollup -c",
     "docs": "typedoc --excludePrivate --excludeNotDocumented --excludeExternals --exclude '**/__tests__/**/*' --includeVersion --out docs/v$npm_package_version --theme minimal src/index.ts",
     "lint": "eslint . --ext ts --fix",
-    "test": "jest --collectCoverage --coverageReporters=text",
+    "test": "jest --coverageReporters=text",
     "test:watch": "node --inspect node_modules/.bin/jest --watchAll --runInBand",
     "scan": "retire --colors",
     "ci:lint": "eslint . --ext ts --format junit -o reports/junit/ts-lint-results.xml",
-    "ci:test": "JEST_JUNIT_OUTPUT_DIR=reports/junit JEST_JUNIT_OUTPUT_NAME=ts-test-results.xml jest --ci --reporters=jest-junit --collectCoverage --coverageDirectory=reports/coverage",
+    "ci:test": "JEST_JUNIT_OUTPUT_DIR=reports/junit JEST_JUNIT_OUTPUT_NAME=ts-test-results.xml jest --ci --reporters=jest-junit --coverageReporters=lcov",
     "ci:scan": "retire",
     "cd:deploy-docs": "cp -r docs/v$npm_package_version docs/latest && gh-pages --add --branch ${GIT_DOCUMENTATION_BRANCH-gh-pages} --dist './docs' --dotfiles --message \"[skip ci] docs(docs): adding v$npm_package_version to gh-pages\""
   },

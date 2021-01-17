@@ -3,6 +3,7 @@ version: 2.1
 orbs:
   node: circleci/node@4.1
   slack: circleci/slack@4.1
+  coveralls: coveralls/coveralls@1.0
 
 definitions:
   const_working_directory: &const_working_directory /mnt/ramdisk
@@ -136,10 +137,12 @@ jobs:
       - run:
           name: Test
           command: yarn run ci:test
+      - coveralls/upload:
+          path_to_lcov: reports/coverage/lcov.info
       - store_test_results:
           path: reports/junit
       - store_artifacts:
-          path: reports
+          path: reports/junit
       - <<: *step_slack_notify_fail
 
   Scan_for_vulnerabilities:
