@@ -24,6 +24,9 @@
       "@tests/*": [
         "src/__tests__/*"
       ],
+      "@mocks/*": [
+        "src/__mocks__/*"
+      ],
       "@lib/*": [
         "lib/*"
       ]
