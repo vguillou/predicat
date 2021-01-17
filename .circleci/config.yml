@@ -160,10 +160,8 @@ jobs:
   Upload_test_coverage:
     <<: *job_defaults
     steps:
+      - checkout
       - <<: *step_attach_workspace
-      - run:
-          name: cat
-          command: cat reports/coverage/lcov.info
       - coveralls/upload:
           path_to_lcov: *const_path_coverage_file
       - <<: *step_slack_notify_fail
