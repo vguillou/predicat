@@ -17,6 +17,7 @@
   - [Combine predicates](#combine-predicates)
 - [License](#license)
 - [Contribute](#contribute)
+  - [Todo](#todo)
   - [Tag and publish](#tag-and-publish)
 
 ## Installation
@@ -77,11 +78,16 @@ const myOtherCombinedPredicate: Predicate<void> = some(
 
 ## License
 
-[Predicat is public domain software. See UNLICENSE.TXT for more details.](https://github.com/vguillou/predicat/blob/master/UNLICENSE.txt)
+[Predicat is public domain software. See LICENSE for more details.](https://github.com/vguillou/predicat/blob/master/LICENSE)
 
 ## Contribute
 
 Please submit a Pull Request! 😺
+
+### Todo
+- Generate Github and Npm changelog from PR names
+- Publish changelogs to Slack channel ?
+- Commit format ?
 
 ### Tag and publish
 
