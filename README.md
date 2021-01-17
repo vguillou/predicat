@@ -3,14 +3,15 @@
 > A cute library to create, combine, and enjoy common predicates. 🐱
 
 [![Maintenance](https://img.shields.io/badge/maintained%3F-yes-blue?style=flat-square)](https://github.com/vguillou/predicat/graphs/commit-activity)
-[![Latest documentation](https://img.shields.io/badge/latest-documentation-blue?style=flat-square)](https://vguillou.github.io/predicat/latest/)
-[![License](https://img.shields.io/github/license/vguillou/predicat?color=blue&style=flat-square)](https://github.com/vguillou/predicat/blob/master/LICENSE)
+[![Build status](https://img.shields.io/circleci/build/gh/vguillou/predicat/master?style=flat-square)](https://app.circleci.com/pipelines/github/vguillou/predicat)
+[![Coverage](https://img.shields.io/codecov/c/gh/vguillou/predicat/master?style=flat-square)](https://codecov.io/gh/vguillou/predicat)
+[![Package size](https://img.shields.io/bundlephobia/minzip/predicat?style=flat-square)](https://img.shields.io/bundlephobia/minzip/predicat)
 
 [![Npm version](https://img.shields.io/npm/v/predicat?color=orange&style=flat-square)](https://www.npmjs.com/package/predicat)
 [![Npm downloads](https://img.shields.io/npm/dw/predicat?color=orange&style=flat-square)](https://www.npmjs.com/package/predicat)
-[![Package size](https://img.shields.io/bundlephobia/minzip/predicat?style=flat-square)](https://img.shields.io/bundlephobia/minzip/predicat)
-[![Build status](https://img.shields.io/circleci/build/gh/vguillou/predicat/master?style=flat-square)](https://app.circleci.com/pipelines/github/vguillou/predicat)
-[![Coverage](https://img.shields.io/codecov/c/gh/vguillou/predicat/master?style=flat-square)](https://codecov.io/gh/vguillou/predicat)
+[![Documentation](https://img.shields.io/badge/documentation-blue?style=flat-square)](https://vguillou.github.io/predicat/latest/)
+[![Changelog](https://img.shields.io/badge/changelog-blue?style=flat-square)](https://github.com/vguillou/predicat/blob/master/CHANGELOG.md)
+[![License](https://img.shields.io/github/license/vguillou/predicat?color=blue&style=flat-square)](https://github.com/vguillou/predicat/blob/master/LICENSE)
 
 - [Installation](#installation)
 - [Usage](#usage)
@@ -21,7 +22,6 @@
 - [Contribute](#contribute)
   - [Commit](#commit)
   - [Tag and publish](#tag-and-publish)
-  - [Todo](#todo)
 
 ## Installation
 
@@ -99,10 +99,7 @@ $ yarn commit
 ```bash
 # Merge in master
 $ git checkout master && git pull
-$ yarn release # Updates package.json and creates an annotated git tag
-$ git push origin master --tags
+$ yarn release # Updates package.json, the changelog and creates an annotated git tag
+$ git push --follow-tags origin master
 # CircleCI will test, build, then publish the new version to NPM and deploy the documentation to the 'gh-pages' branch
 ```
-
-### Todo
-- Publish changelogs to Slack channel ?

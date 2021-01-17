@@ -25,7 +25,6 @@
     "test": "jest --coverageReporters=text",
     "test:watch": "node --inspect node_modules/.bin/jest --watchAll --runInBand",
     "release": "standard-version --no-verify",
-    "release:beta": "yarn release --prerelease beta",
     "scan": "retire --colors",
     "ci:lint": "eslint . --ext ts --format junit -o reports/junit/ts-lint-results.xml",
     "ci:test": "JEST_JUNIT_OUTPUT_DIR=reports/junit JEST_JUNIT_OUTPUT_NAME=ts-test-results.xml jest --ci --reporters=jest-junit",
