@@ -3,12 +3,14 @@
 > A cute library to create, combine, and enjoy common predicates. 🐱
 
 [![Maintenance](https://img.shields.io/badge/maintained%3F-yes-blue?style=flat-square)](https://github.com/vguillou/predicat/graphs/commit-activity)
-[![Latest docs](https://img.shields.io/badge/latest-docs-blue?style=flat-square)](https://vguillou.github.io/predicat/latest/)
+[![Latest documentation](https://img.shields.io/badge/latest-documentation-blue?style=flat-square)](https://vguillou.github.io/predicat/latest/)
 [![License](https://img.shields.io/github/license/vguillou/predicat?color=blue&style=flat-square)](https://github.com/vguillou/predicat/blob/master/LICENSE)
+
+[![Npm version](https://img.shields.io/npm/v/predicat?color=orange&style=flat-square)](https://www.npmjs.com/package/predicat)
+[![Npm downloads](https://img.shields.io/npm/dw/predicat?color=orange&style=flat-square)](https://www.npmjs.com/package/predicat)
+[![Package size](https://img.shields.io/bundlephobia/minzip/predicat?style=flat-square)](https://img.shields.io/bundlephobia/minzip/predicat)
 [![Build status](https://img.shields.io/circleci/build/gh/vguillou/predicat/master?style=flat-square)](https://app.circleci.com/pipelines/github/vguillou/predicat)
 [![Coverage](https://img.shields.io/codecov/c/gh/vguillou/predicat/master?style=flat-square)](https://codecov.io/gh/vguillou/predicat)
-[![Npm version](https://img.shields.io/npm/v/predicat?color=orange&style=flat-square)](https://www.npmjs.com/package/predicat)
-[![Npm Downloads](https://img.shields.io/npm/dw/predicat?color=orange&style=flat-square)](https://www.npmjs.com/package/predicat)
 
 - [Installation](#installation)
 - [Usage](#usage)
@@ -17,8 +19,9 @@
   - [Combine predicates](#combine-predicates)
 - [License](#license)
 - [Contribute](#contribute)
-  - [Todo](#todo)
+  - [Commit](#commit)
   - [Tag and publish](#tag-and-publish)
+  - [Todo](#todo)
 
 ## Installation
 
@@ -84,17 +87,22 @@ const myOtherCombinedPredicate: Predicate<void> = some(
 
 Please submit a Pull Request! 😺
 
-### Todo
-- Generate Github and Npm changelog from PR names
-- Publish changelogs to Slack channel ?
-- Commit format ?
+### Commit
+
+```bash
+# git add, then use
+$ yarn commit
+```
 
 ### Tag and publish
 
 ```bash
 # Merge in master
 $ git checkout master && git pull
-$ yarn version [--patch|--minor|--major] # Updates package.json and creates an annotated git tag
+$ yarn release # Updates package.json and creates an annotated git tag
 $ git push origin master --tags
 # CircleCI will test, build, then publish the new version to NPM and deploy the documentation to the 'gh-pages' branch
 ```
+
+### Todo
+- Publish changelogs to Slack channel ?
