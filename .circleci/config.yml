@@ -55,6 +55,10 @@ definitions:
       - Test:
           <<: *requires_dependencies
           <<: *context_slack
+      - Upload_test_coverage:
+          requires:
+            - Test
+          <<: *context_slack
       - Scan_for_vulnerabilities:
           <<: *requires_dependencies
           <<: *context_slack
@@ -77,6 +81,11 @@ definitions:
       - Test:
           <<: *filter_only_for_tags
           <<: *requires_dependencies
+          <<: *context_slack
+      - Upload_test_coverage:
+          <<: *filter_only_for_tags
+          requires:
+            - Test
           <<: *context_slack
       - Scan_for_vulnerabilities:
           <<: *filter_only_for_tags
@@ -137,12 +146,20 @@ jobs:
       - run:
           name: Test
           command: yarn run ci:test
-      - coveralls/upload:
-          path_to_lcov: reports/coverage/lcov.info
       - store_test_results:
           path: reports/junit
       - store_artifacts:
           path: reports/junit
+      - store_artifacts:
+          path: reports/coverage/lcov.info
+      - <<: *step_slack_notify_fail
+
+  Upload_test_coverage:
+    <<: *job_defaults
+    steps:
+      - <<: *step_attach_workspace
+      - coveralls/upload:
+          path_to_lcov: reports/coverage/lcov.info
       - <<: *step_slack_notify_fail
 
   Scan_for_vulnerabilities:
