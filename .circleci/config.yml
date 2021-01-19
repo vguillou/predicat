@@ -29,6 +29,10 @@ definitions:
     context:
       - slack-integration
       - npm-publishing
+  context_slack_bundlesize: &context_slack_bundlesize
+    context:
+      - slack-integration
+      - bundlesize-github-integration
 
   step_attach_workspace: &step_attach_workspace
     attach_workspace:
@@ -66,6 +70,10 @@ definitions:
       - Build:
           <<: *requires_dependencies
           <<: *context_slack
+      - Check_bundle_size:
+          requires:
+            - Build
+          <<: *context_slack_bundlesize
       - Generate_docs:
           <<: *requires_dependencies
           <<: *context_slack
@@ -96,6 +104,11 @@ definitions:
           <<: *filter_only_for_tags
           <<: *requires_dependencies
           <<: *context_slack
+      - Check_bundle_size:
+          <<: *filter_only_for_tags
+          requires:
+            - Build
+          <<: *context_slack_bundlesize
       - Generate_docs:
           <<: *filter_only_for_tags
           <<: *requires_dependencies
@@ -107,6 +120,7 @@ definitions:
             - Test
             - Scan_for_vulnerabilities
             - Build
+            - Check_bundle_size
             - Generate_docs
           <<: *context_slack
       - Publish_lib:
@@ -183,13 +197,23 @@ jobs:
       - <<: *step_attach_workspace
       - run:
           name: Build
-          command: yarn run build
+          command: yarn run ci:build
       - persist_to_workspace:
           root: *const_path_working_directory
           paths:
             - lib
       - store_artifacts:
           path: lib
+      - <<: *step_slack_notify_fail
+
+  Check_bundle_size:
+    <<: *job_defaults
+    steps:
+      - checkout
+      - <<: *step_attach_workspace
+      - run:
+          name: Check bundle size
+          command: yarn run ci:bundlesize
       - <<: *step_slack_notify_fail
 
   Publish_lib:
@@ -215,7 +239,7 @@ jobs:
       - <<: *step_attach_workspace
       - run:
           name: Generate documentation
-          command: yarn run docs
+          command: yarn run ci:docs
       - persist_to_workspace:
           root: *const_path_working_directory
           paths:

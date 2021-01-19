@@ -1,0 +1,12 @@
+{
+  "files": [
+    {
+      "path": "./lib/index.esm.js",
+      "maxSize": "600 B"
+    },
+    {
+      "path": "./lib/umd/index.js",
+      "maxSize": "1 kB"
+    }
+  ]
+}
