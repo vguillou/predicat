@@ -1,7 +1,7 @@
 import typescriptPlugin from 'rollup-plugin-typescript2';
 import camelCase from 'lodash.camelcase'
 import capitalize from 'lodash.capitalize'
-import * as pkg from "./package.json";
+import * as pkg from './package.json';
 
 const configuration = (output) => ({
   input: 'src/index.ts',
@@ -9,7 +9,7 @@ const configuration = (output) => ({
   external: [],
   plugins: [
     typescriptPlugin({
-      tsconfig: "tsconfig-packaging.json",
+      tsconfig: `tsconfig-packaging-${output.format}.json`,
       useTsconfigDeclarationDir: true,
     }),
   ],

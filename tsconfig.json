@@ -8,8 +8,8 @@
     "declarationDir": "lib/types",
     "sourceMap": true,
     "strict": true,
-    "module": "es6",
-    "target": "es5",
+    "module": "ES2015",
+    "target": "ES2015",
     "lib": [
       "ES5",
       "ES2015"

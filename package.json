@@ -11,6 +11,7 @@
     "url": "https://github.com/vguillou/predicat.git"
   },
   "license": "Unlicense",
+  "sideEffects": false,
   "module": "lib/index.esm.js",
   "main": "lib/umd/index.js",
   "types": "lib/types/index.d.ts",
