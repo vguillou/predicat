@@ -28,6 +28,7 @@
     "test:watch": "node --inspect node_modules/.bin/jest --watchAll --runInBand",
     "release": "standard-version --no-verify",
     "scan": "retire --colors",
+    "validate-ci-config": "circleci config validate",
     "ci:build": "yarn run build",
     "ci:bundlesize": "yarn run bundlesize",
     "ci:docs": "yarn run docs",
