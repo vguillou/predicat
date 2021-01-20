@@ -20,7 +20,7 @@ definitions:
 
   requires_dependencies: &requires_dependencies
     requires:
-      - Install_dependencies
+      - Install dependencies
 
   context_slack: &context_slack
     context:
@@ -50,9 +50,9 @@ definitions:
     executor: node/default
     working_directory: *const_path_working_directory
 
-  workflow_build: &workflow_build
+  workflow_build_test: &workflow_build_test
     jobs:
-      - Install_dependencies:
+      - Install dependencies:
           <<: *context_slack
       - Lint:
           <<: *requires_dependencies
@@ -60,27 +60,27 @@ definitions:
       - Test:
           <<: *requires_dependencies
           <<: *context_slack
-      - Upload_test_coverage:
+      - Upload test coverage:
           requires:
             - Test
           <<: *context_slack
-      - Scan_for_vulnerabilities:
+      - Scan for vulnerabilities:
           <<: *requires_dependencies
           <<: *context_slack
       - Build:
           <<: *requires_dependencies
           <<: *context_slack
-      - Check_bundle_size:
+      - Check bundle size:
           requires:
             - Build
           <<: *context_slack_bundlesize
-      - Generate_docs:
+      - Generate docs:
           <<: *requires_dependencies
           <<: *context_slack
 
-  workflow_publish: &workflow_publish
+  workflow_release: &workflow_release
     jobs:
-      - Install_dependencies:
+      - Install dependencies:
           <<: *filter_only_for_tags
           <<: *context_slack
       - Lint:
@@ -91,12 +91,12 @@ definitions:
           <<: *filter_only_for_tags
           <<: *requires_dependencies
           <<: *context_slack
-      - Upload_test_coverage:
+      - Upload test coverage:
           <<: *filter_only_for_tags
           requires:
             - Test
           <<: *context_slack
-      - Scan_for_vulnerabilities:
+      - Scan for vulnerabilities:
           <<: *filter_only_for_tags
           <<: *requires_dependencies
           <<: *context_slack
@@ -104,33 +104,34 @@ definitions:
           <<: *filter_only_for_tags
           <<: *requires_dependencies
           <<: *context_slack
-      - Check_bundle_size:
+      - Check bundle size:
           <<: *filter_only_for_tags
           requires:
             - Build
           <<: *context_slack_bundlesize
-      - Generate_docs:
+      - Generate docs:
           <<: *filter_only_for_tags
           <<: *requires_dependencies
           <<: *context_slack
-      - Deploy_docs:
+      - Deploy docs:
           <<: *filter_only_for_tags
           requires:
             - Lint
             - Test
-            - Scan_for_vulnerabilities
+            - Upload test coverage
+            - Scan for vulnerabilities
             - Build
-            - Check_bundle_size
-            - Generate_docs
+            - Check bundle size
+            - Generate docs
           <<: *context_slack
-      - Publish_lib:
+      - Publish lib:
           <<: *filter_only_for_tags
           requires:
-            - Deploy_docs
+            - Deploy docs
           <<: *context_slack_npm
 
 jobs:
-  Install_dependencies:
+  Install dependencies:
     <<: *job_defaults
     steps:
       - checkout
@@ -171,7 +172,7 @@ jobs:
           path: reports/junit
       - <<: *step_slack_notify_fail
 
-  Upload_test_coverage:
+  Upload test coverage:
     <<: *job_defaults
     steps:
       - checkout
@@ -180,7 +181,7 @@ jobs:
           file: *const_path_coverage_file
       - <<: *step_slack_notify_fail
 
-  Scan_for_vulnerabilities:
+  Scan for vulnerabilities:
     <<: *job_defaults
     steps:
       - checkout
@@ -206,7 +207,7 @@ jobs:
           path: lib
       - <<: *step_slack_notify_fail
 
-  Check_bundle_size:
+  Check bundle size:
     <<: *job_defaults
     steps:
       - checkout
@@ -216,7 +217,7 @@ jobs:
           command: yarn run ci:bundlesize
       - <<: *step_slack_notify_fail
 
-  Publish_lib:
+  Publish lib:
     <<: *job_defaults
     steps:
       - checkout
@@ -232,7 +233,7 @@ jobs:
       - <<: *step_slack_notify_fail
       - <<: *step_slack_notify_deploy_success
 
-  Generate_docs:
+  Generate docs:
     <<: *job_defaults
     steps:
       - checkout
@@ -248,7 +249,7 @@ jobs:
           path: docs
       - <<: *step_slack_notify_fail
 
-  Deploy_docs:
+  Deploy docs:
     <<: *job_defaults
     steps:
       - checkout
@@ -281,14 +282,14 @@ jobs:
 workflows:
   version: 2
 
-  Push:
-    <<: *workflow_build
+  Build & Test:
+    <<: *workflow_build_test
 
-  Publish:
-    <<: *workflow_publish
+  Release:
+    <<: *workflow_release
 
   #Nightly:
-  #  <<: *workflow_build
+  #  <<: *workflow_build_test
   #  triggers:
   #    - schedule:
   #        cron: "0 3 * * *"
@@ -296,10 +297,9 @@ workflows:
   #          branches:
   #            only:
   #              - master
-  #              - develop
 
   Weekly:
-    <<: *workflow_build
+    <<: *workflow_build_test
     triggers:
       - schedule:
           cron: "0 4 * * 0"
@@ -307,4 +307,3 @@ workflows:
             branches:
               only:
                 - master
-                - develop
