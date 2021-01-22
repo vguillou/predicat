@@ -42,5 +42,5 @@ export const arraySample = dataSetFactory([1, 2], { isTruthy: true, isArray: tru
 export const setEmpty = dataSetFactory(new Set(arrayEmpty.value), { isTruthy: true, isSet: true })
 export const setSample = dataSetFactory(new Set(arraySample.value), { isTruthy: true, isSet: true })
 
-export const regexpEmpty = dataSetFactory(new RegExp(''), { isTruthy: true })
-export const regexpSample = dataSetFactory(/abc/, { isTruthy: true })
+export const regexpEmpty = dataSetFactory(new RegExp(''), { isTruthy: true, isRegExp: true })
+export const regexpSample = dataSetFactory(/abc/, { isTruthy: true, isRegExp: true })

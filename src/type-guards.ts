@@ -28,30 +28,39 @@ export function isNumber(subject: unknown): subject is number {
 }
 
 /**
- * Check if the `subject` is an `array` (can be used as a type guard).
+ * Check if the `subject` is an `Array` (can be used as a type guard).
  * @param subject - the variable to check.
- * @returns `true` the given parameter is an `array`, `false` otherwise.
+ * @returns `true` the given parameter is an `Array`, `false` otherwise.
  */
 export function isArray(subject: unknown): subject is any[] {
   return Array.isArray(subject)
 }
 
 /**
- * Check if the `subject` is a `set` (can be used as a type guard).
+ * Check if the `subject` is a `Set` (can be used as a type guard).
  * @param subject - the variable to check.
- * @returns `true` the given parameter is a `set`, `false` otherwise.
+ * @returns `true` the given parameter is a `Set`, `false` otherwise.
  */
 export function isSet(subject: unknown): subject is Set<any> {
   return subject instanceof Set
 }
 
 /**
- * Check if the `subject` is a `map` (can be used as a type guard).
+ * Check if the `subject` is a `Map` (can be used as a type guard).
  * @param subject - the variable to check.
- * @returns `true` the given parameter is a `map`, `false` otherwise.
+ * @returns `true` the given parameter is a `Map`, `false` otherwise.
  */
 export function isMap(subject: unknown): subject is Map<any, any> {
   return subject instanceof Map
+}
+
+/**
+ * Check if the `subject` is a `RegExp` (can be used as a type guard).
+ * @param subject - the variable to check.
+ * @returns `true` the given parameter is a `RegExp`, `false` otherwise.
+ */
+export function isRegExp(subject: unknown): subject is RegExp {
+  return subject instanceof RegExp
 }
 
 /**

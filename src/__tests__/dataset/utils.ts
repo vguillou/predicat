@@ -17,6 +17,7 @@ export type DataFlags = {
   isNill: boolean
   isNull: boolean
   isNumber: boolean
+  isRegExp: boolean
   isSet: boolean
   isString: boolean
   isUndefined: boolean
@@ -36,6 +37,7 @@ export const dataSetFactory = <T>(value: T, flags: Partial<DataFlags> = {}): Dat
   isNill: false,
   isNull: false,
   isNumber: false,
+  isRegExp: false,
   isSet: false,
   isString: false,
   isUndefined: false,

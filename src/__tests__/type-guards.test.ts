@@ -5,6 +5,7 @@ import {
   isNill,
   isNull,
   isNumber,
+  isRegExp,
   isSet,
   isString,
   isUndefined,
@@ -25,6 +26,8 @@ datasetBasedTest('isNill', isNill, datasets, (data) => data.isNill)
 datasetBasedTest('isNull', isNull, datasets, (data) => data.isNull)
 
 datasetBasedTest('isNumber', isNumber, datasets, (data) => data.isNumber)
+
+datasetBasedTest('isRegExp', isRegExp, datasets, (data) => data.isRegExp)
 
 datasetBasedTest('isSet', isSet, datasets, (data) => data.isSet)
 
