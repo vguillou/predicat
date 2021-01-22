@@ -5,6 +5,7 @@
 [![Maintenance](https://img.shields.io/badge/maintained%3F-yes-blue?style=flat-square)](https://github.com/vguillou/predicat/graphs/commit-activity)
 [![Build status](https://img.shields.io/circleci/build/gh/vguillou/predicat/master?style=flat-square)](https://app.circleci.com/pipelines/github/vguillou/predicat)
 [![Coverage](https://img.shields.io/codecov/c/gh/vguillou/predicat/master?style=flat-square)](https://codecov.io/gh/vguillou/predicat)
+[![Code quality](https://img.shields.io/codefactor/grade/github/vguillou/predicat/master?style=flat-square)](https://www.codefactor.io/repository/github/vguillou/predicat)
 [![Package size](https://img.shields.io/bundlephobia/minzip/predicat?style=flat-square)](https://bundlephobia.com/result?p=predicat)
 
 [![Npm version](https://img.shields.io/npm/v/predicat?color=orange&style=flat-square)](https://www.npmjs.com/package/predicat)
