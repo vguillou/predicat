@@ -141,11 +141,13 @@ definitions:
           <<: *requires_checks_and_builds
           <<: *context_slack
       - Publish lib:
+          name: Publish release lib
           <<: *filter_only_release_tags
           requires:
             - Deploy docs
           <<: *context_slack_npm
       - Publish lib:
+          name: Publish pre-release lib
           <<: *filter_only_prerelease_tags
           <<: *requires_checks_and_builds
           <<: *context_slack_npm
