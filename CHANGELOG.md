@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0-beta.0](https://github.com/vguillou/predicat/compare/v1.0.4-beta.0...v1.1.0-beta.0) (2021-01-24)
+
+
+### Features
+
+* **type-guards:** `isRegExp` type guard added ([5f5eb57](https://github.com/vguillou/predicat/commit/5f5eb57e9b269da8e803e5f64b23ee47d85fef10))
+
+
+### Docs
+
+* **readme:** add code quality badge ([831c6c0](https://github.com/vguillou/predicat/commit/831c6c09a5237059a221eeed6623a5a112033514))
+
+
+### Build System
+
+* always ship ES5 ([3143b3d](https://github.com/vguillou/predicat/commit/3143b3da4c2a098bedaaa0ebcb73d980c5e40ea7))
+
+
+### CI
+
+* command to publish beta release ([d286758](https://github.com/vguillou/predicat/commit/d286758da6520554b26d09b65a76b3c06bb9859e))
+* deploy docs only for release tags ([f1857c9](https://github.com/vguillou/predicat/commit/f1857c90c484ab3f5c25e4d6961be2a8b178ddd5))
+
 ### [1.0.4-beta.0](https://github.com/vguillou/predicat/compare/v1.0.3...v1.0.4-beta.0) (2021-01-20)
 
 
