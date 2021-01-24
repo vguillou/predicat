@@ -9,7 +9,7 @@ const configuration = (output) => ({
   external: [],
   plugins: [
     typescriptPlugin({
-      tsconfig: `tsconfig-packaging-${output.format}.json`,
+      tsconfig: 'tsconfig-packaging.json',
       useTsconfigDeclarationDir: true,
     }),
   ],
