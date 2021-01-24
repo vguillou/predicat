@@ -8,19 +8,42 @@ orbs:
 definitions:
   const_path_working_directory: &const_path_working_directory /mnt/ramdisk
   const_path_coverage_file: &const_path_coverage_file reports/coverage/lcov.info
-  const_tags_regexp: &const_tags_regexp /^v(\d)+\.(\d)+.(\d)+(-(alpha|beta)\.(\d)+)?$/
+  const_all_tags_regexp: &const_all_tags_regexp /^v(\d)+\.(\d)+.(\d)+(-(alpha|beta)\.(\d)+)?$/
+  const_release_tags_regexp: &const_release_tags_regexp /^v(\d)+\.(\d)+.(\d)+$/
+  const_prerelease_tags_regexp: &const_prerelease_tags_regexp /^v(\d)+\.(\d)+.(\d)+(-(alpha|beta)\.(\d)+)$/
   const_git_documentation_branch: &const_git_documentation_branch gh-pages
 
-  filter_only_for_tags: &filter_only_for_tags
+  filter_only_all_tags: &filter_only_all_tags
     filters:
       tags:
-        only: *const_tags_regexp
+        only: *const_all_tags_regexp
+      branches:
+        ignore: /.*/
+  filter_only_release_tags: &filter_only_release_tags
+    filters:
+      tags:
+        only: *const_release_tags_regexp
+      branches:
+        ignore: /.*/
+  filter_only_prerelease_tags: &filter_only_prerelease_tags
+    filters:
+      tags:
+        only: *const_prerelease_tags_regexp
       branches:
         ignore: /.*/
 
   requires_dependencies: &requires_dependencies
     requires:
       - Install dependencies
+  requires_checks_and_builds: &requires_checks_and_builds
+    requires:
+      - Lint
+      - Test
+      - Upload test coverage
+      - Scan for vulnerabilities
+      - Build
+      - Check bundle size
+      - Generate docs
 
   context_slack: &context_slack
     context:
@@ -81,53 +104,50 @@ definitions:
   workflow_release: &workflow_release
     jobs:
       - Install dependencies:
-          <<: *filter_only_for_tags
+          <<: *filter_only_all_tags
           <<: *context_slack
       - Lint:
-          <<: *filter_only_for_tags
+          <<: *filter_only_all_tags
           <<: *requires_dependencies
           <<: *context_slack
       - Test:
-          <<: *filter_only_for_tags
+          <<: *filter_only_all_tags
           <<: *requires_dependencies
           <<: *context_slack
       - Upload test coverage:
-          <<: *filter_only_for_tags
+          <<: *filter_only_all_tags
           requires:
             - Test
           <<: *context_slack
       - Scan for vulnerabilities:
-          <<: *filter_only_for_tags
+          <<: *filter_only_all_tags
           <<: *requires_dependencies
           <<: *context_slack
       - Build:
-          <<: *filter_only_for_tags
+          <<: *filter_only_all_tags
           <<: *requires_dependencies
           <<: *context_slack
       - Check bundle size:
-          <<: *filter_only_for_tags
+          <<: *filter_only_all_tags
           requires:
             - Build
           <<: *context_slack_bundlesize
       - Generate docs:
-          <<: *filter_only_for_tags
+          <<: *filter_only_all_tags
           <<: *requires_dependencies
           <<: *context_slack
       - Deploy docs:
-          <<: *filter_only_for_tags
-          requires:
-            - Lint
-            - Test
-            - Upload test coverage
-            - Scan for vulnerabilities
-            - Build
-            - Check bundle size
-            - Generate docs
+          <<: *filter_only_release_tags
+          <<: *requires_checks_and_builds
           <<: *context_slack
       - Publish lib:
-          <<: *filter_only_for_tags
+          <<: *filter_only_release_tags
           requires:
             - Deploy docs
+          <<: *context_slack_npm
+      - Publish lib:
+          <<: *filter_only_prerelease_tags
+          <<: *requires_checks_and_builds
           <<: *context_slack_npm
 
 jobs:
