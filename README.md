@@ -6,13 +6,13 @@
 [![Build status](https://img.shields.io/circleci/build/gh/vguillou/predicat/master?style=flat-square)](https://app.circleci.com/pipelines/github/vguillou/predicat)
 [![Coverage](https://img.shields.io/codecov/c/gh/vguillou/predicat/master?style=flat-square)](https://codecov.io/gh/vguillou/predicat)
 [![Code quality](https://img.shields.io/codefactor/grade/github/vguillou/predicat/master?style=flat-square)](https://www.codefactor.io/repository/github/vguillou/predicat)
-[![Package size](https://img.shields.io/bundlephobia/minzip/predicat?style=flat-square)](https://bundlephobia.com/result?p=predicat)
+[![Dependencies](https://img.shields.io/david/vguillou/predicat?style=flat-square)](https://david-dm.org/vguillou/predicat)
 
-[![Npm version](https://img.shields.io/npm/v/predicat?color=orange&style=flat-square)](https://www.npmjs.com/package/predicat)
-[![Npm downloads](https://img.shields.io/npm/dw/predicat?color=orange&style=flat-square)](https://www.npmjs.com/package/predicat)
+[![Npm version](https://img.shields.io/npm/v/predicat?color=orange&style=flat-square)](https://www.npmjs.com/package/predicat)<!--[![Npm downloads](https://img.shields.io/npm/dw/predicat?color=orange&style=flat-square)](https://www.npmjs.com/package/predicat)-->
+[![Package size](https://img.shields.io/bundlephobia/minzip/predicat?style=flat-square)](https://bundlephobia.com/result?p=predicat)
+[![License](https://img.shields.io/github/license/vguillou/predicat?color=blue&style=flat-square)](https://github.com/vguillou/predicat/blob/master/LICENSE)
 [![Documentation](https://img.shields.io/badge/documentation-blue?style=flat-square)](https://vguillou.github.io/predicat/latest/)
 [![Changelog](https://img.shields.io/badge/changelog-blue?style=flat-square)](https://github.com/vguillou/predicat/blob/master/CHANGELOG.md)
-[![License](https://img.shields.io/github/license/vguillou/predicat?color=blue&style=flat-square)](https://github.com/vguillou/predicat/blob/master/LICENSE)
 
 - [Installation](#installation)
 - [Usage](#usage)
