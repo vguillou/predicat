@@ -1,7 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "removeComments": true
+    // "removeComments": true
   },
   "exclude": [
     "src/__mocks__/*",
