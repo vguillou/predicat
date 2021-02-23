@@ -27,15 +27,20 @@
 ## Installation
 
 Using NPM
-
 ```bash
 $ npm install predicat
 ```
 
 Or Yarn
-
 ```bash
 $ yarn add predicat
+```
+
+Or directly to the HTML page right before the closing </body> tag:
+```html
+<!-- ... other HTML ... -->
+  <script src="https://unpkg.com/predicat/umd/predicat.js" crossorigin></script> <!-- When deploying, use predicat.min.js -->
+</body>
 ```
 
 ## Usage

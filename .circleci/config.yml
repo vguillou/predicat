@@ -13,19 +13,24 @@ definitions:
   const_prerelease_tags_regexp: &const_prerelease_tags_regexp /^v(\d)+\.(\d)+.(\d)+(-(alpha|beta)\.(\d)+)$/
   const_git_documentation_branch: &const_git_documentation_branch gh-pages
 
-  filter_only_all_tags: &filter_only_all_tags
+  filters_only_master: &filters_only_master
+    filters:
+      branches:
+        only:
+          - master
+  filters_only_all_tags: &filters_only_all_tags
     filters:
       tags:
         only: *const_all_tags_regexp
       branches:
         ignore: /.*/
-  filter_only_release_tags: &filter_only_release_tags
+  filters_only_release_tags: &filters_only_release_tags
     filters:
       tags:
         only: *const_release_tags_regexp
       branches:
         ignore: /.*/
-  filter_only_prerelease_tags: &filter_only_prerelease_tags
+  filters_only_prerelease_tags: &filters_only_prerelease_tags
     filters:
       tags:
         only: *const_prerelease_tags_regexp
@@ -88,6 +93,7 @@ definitions:
             - Test
           <<: *context_slack
       - Scan for vulnerabilities:
+          <<: *filters_only_master
           <<: *requires_dependencies
           <<: *context_slack
       - Build:
@@ -104,51 +110,51 @@ definitions:
   workflow_release: &workflow_release
     jobs:
       - Install dependencies:
-          <<: *filter_only_all_tags
+          <<: *filters_only_all_tags
           <<: *context_slack
       - Lint:
-          <<: *filter_only_all_tags
+          <<: *filters_only_all_tags
           <<: *requires_dependencies
           <<: *context_slack
       - Test:
-          <<: *filter_only_all_tags
+          <<: *filters_only_all_tags
           <<: *requires_dependencies
           <<: *context_slack
       - Upload test coverage:
-          <<: *filter_only_all_tags
+          <<: *filters_only_all_tags
           requires:
             - Test
           <<: *context_slack
       - Scan for vulnerabilities:
-          <<: *filter_only_all_tags
+          <<: *filters_only_all_tags
           <<: *requires_dependencies
           <<: *context_slack
       - Build:
-          <<: *filter_only_all_tags
+          <<: *filters_only_all_tags
           <<: *requires_dependencies
           <<: *context_slack
       - Check bundle size:
-          <<: *filter_only_all_tags
+          <<: *filters_only_all_tags
           requires:
             - Build
           <<: *context_slack_bundlesize
       - Generate docs:
-          <<: *filter_only_all_tags
+          <<: *filters_only_all_tags
           <<: *requires_dependencies
           <<: *context_slack
       - Deploy docs:
-          <<: *filter_only_release_tags
+          <<: *filters_only_release_tags
           <<: *requires_checks_and_builds
           <<: *context_slack
       - Publish lib:
           name: Publish release lib
-          <<: *filter_only_release_tags
+          <<: *filters_only_release_tags
           requires:
             - Deploy docs
           <<: *context_slack_npm
       - Publish lib:
           name: Publish pre-release lib
-          <<: *filter_only_prerelease_tags
+          <<: *filters_only_prerelease_tags
           <<: *requires_checks_and_builds
           <<: *context_slack_npm
 
@@ -225,8 +231,11 @@ jobs:
           root: *const_path_working_directory
           paths:
             - lib
+            - umd
       - store_artifacts:
           path: lib
+      - store_artifacts:
+          path: umd
       - <<: *step_slack_notify_fail
 
   Check bundle size:
@@ -321,17 +330,11 @@ workflows:
   #  triggers:
   #    - schedule:
   #        cron: "0 3 * * *"
-  #        filters:
-  #          branches:
-  #            only:
-  #              - master
+  #        <<: *filters_only_master
 
   Weekly:
     <<: *workflow_build_test
     triggers:
       - schedule:
           cron: "0 4 * * 0"
-          filters:
-            branches:
-              only:
-                - master
+          <<: *filters_only_master
