@@ -2,6 +2,44 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.1](https://github.com/vguillou/predicat/compare/v1.1.0...v1.1.1) (2021-02-24)
+
+
+### Docs
+
+* **readme:** added dependencies badge, removed Npm download count badge ([7bc4f9e](https://github.com/vguillou/predicat/commit/7bc4f9e117fa71b5204c8891e5414d9b789e98b4))
+
+
+### CI
+
+* **dependabot:** more frequent auto-assigned PR for deps updates ([c286016](https://github.com/vguillou/predicat/commit/c286016a0e5b22268ccb09ec95cd9446cf617894))
+
+
+### Others
+
+* **dev tools:** migrated to husky 5 for managing git hooks ([a405195](https://github.com/vguillou/predicat/commit/a405195a91da2f32cca6e5474a7406def516722c))
+
+
+### Build System
+
+* **deps-dev:** bump @commitlint/cli from 11.0.0 to 12.0.0 ([61248e6](https://github.com/vguillou/predicat/commit/61248e633af3a9710a05775dd47878c96ac2c1d5))
+* **deps-dev:** bump @commitlint/config-conventional ([0a08657](https://github.com/vguillou/predicat/commit/0a086574a38af7568716054af113e683ae9dc855))
+* **deps-dev:** bump @types/node from 14.14.21 to 14.14.25 ([5e1f8db](https://github.com/vguillou/predicat/commit/5e1f8dbe20dd0119c0340d8486f87ef52f4db69a))
+* **deps-dev:** bump @typescript-eslint/eslint-plugin ([ecb671f](https://github.com/vguillou/predicat/commit/ecb671fb2796e7548d549e41b039c28e95b56b97))
+* **deps-dev:** bump @typescript-eslint/parser from 4.13.0 to 4.15.0 ([5ebbd0f](https://github.com/vguillou/predicat/commit/5ebbd0f7794700cb0bfc4ad5e360a3cacbc130c0))
+* **deps-dev:** bump eslint from 7.18.0 to 7.19.0 ([a69106f](https://github.com/vguillou/predicat/commit/a69106fedfe36b1080b14179a4c55a775c99e953))
+* **deps-dev:** bump eslint-config-prettier from 7.1.0 to 7.2.0 ([4827571](https://github.com/vguillou/predicat/commit/482757179982e224de3486aac0aa4ab4acb14747))
+* **deps-dev:** bump eslint-config-prettier from 7.2.0 to 8.1.0 ([76a226e](https://github.com/vguillou/predicat/commit/76a226e38e8870d4864bfec016e34035845960d6))
+* **deps-dev:** bump eslint-plugin-tsdoc from 0.2.10 to 0.2.11 ([31ecfdc](https://github.com/vguillou/predicat/commit/31ecfdcc23442bc2fffbdbb7d2fd3ab9e2e471d3))
+* **deps-dev:** bump rollup-plugin-typescript2 from 0.29.0 to 0.30.0 ([ab4c373](https://github.com/vguillou/predicat/commit/ab4c37324a98065b98f97b63e19d6e3c39d06a86))
+* **deps-dev:** bump ts-jest from 26.5.1 to 26.5.2 ([3928d1a](https://github.com/vguillou/predicat/commit/3928d1a29f87f05f518203d794dc8eb8830f89dd))
+* build: optimize packaging and distribution (unpkg CDN added) ([e0289c4](https://github.com/vguillou/predicat/commit/e0289c4ad2f5c9e1633438f7b729e7aae4fed339))
+* **deps-dev:** bump rollup from 2.36.2 to 2.38.3 ([d39d99f](https://github.com/vguillou/predicat/commit/d39d99f6e5e2d7bebd9d39852528972c400bb488))
+* **deps-dev:** bump ts-jest from 26.4.4 to 26.5.1 ([b4c2cea](https://github.com/vguillou/predicat/commit/b4c2cea041b5a3b2041a2fffb7a01223db165e68))
+* **deps-dev:** bump typedoc from 0.20.16 to 0.20.21 ([40f11ac](https://github.com/vguillou/predicat/commit/40f11ac089a448c67382600a10322d03b2ad05c4))
+* **packaging:** keep code comments of the library ([5bb3b43](https://github.com/vguillou/predicat/commit/5bb3b4338030b80a7eebe8e3e0c926f76e0a1e7f))
+* making sure to exclude potential mock in the built lib ([d047557](https://github.com/vguillou/predicat/commit/d047557b683550e6212b2c7f076143ceaa33a7b3))
+
 ## [1.1.0](https://github.com/vguillou/predicat/compare/v1.0.4-beta.0...v1.1.0) (2021-01-25)
 
 
