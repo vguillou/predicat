@@ -1,14 +1,18 @@
 version: 2
+
 updates:
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "weekly"
-      day: "friday"
+      interval: "monthly"
       time: "18:00"
       timezone: "Europe/Paris"
     open-pull-requests-limit: 10
     assignees:
       - "vguillou"
-    #allow:
-    #  - dependency-type: "production"
+    labels:
+      - "npm"
+      - "dependencies"
+    allow:
+      - dependency-type: "development"
+    versioning-strategy: "increase"
