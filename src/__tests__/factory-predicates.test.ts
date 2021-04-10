@@ -25,7 +25,7 @@ const testEvery = (fn: typeof every, fnName: string): void => {
       ({ predicates, subject, expected }) => {
         const result = fn(...predicates)
         expect(result(subject)).toBe(expected)
-      }
+      },
     )
   })
 }
@@ -56,7 +56,7 @@ const testSome = (fn: typeof every, fnName: string): void => {
       ({ predicates, subject, expected }) => {
         const result = fn(...predicates)
         expect(result(subject)).toBe(expected)
-      }
+      },
     )
   })
 }

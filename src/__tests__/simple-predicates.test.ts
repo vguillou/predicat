@@ -1,14 +1,4 @@
-import {
-  always,
-  ok,
-  never,
-  nok,
-  isTruthy,
-  isFalsy,
-  not,
-  isTrue,
-  isFalse,
-} from '@src/simple-predicates'
+import { always, ok, never, nok, isTruthy, isFalsy, not, isTrue, isFalse } from '@src/simple-predicates'
 import * as datasetDictionary from '@tests/dataset'
 import { datasetBasedTest } from '@tests/dataset/utils'
 

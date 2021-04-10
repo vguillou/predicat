@@ -49,7 +49,7 @@ export const datasetBasedTest = <F extends Predicate<any>>(
   testSuiteName: string,
   functionToTest: F,
   datasets: DataSet<any>[],
-  subjectGetter: (dataset: DataSet<any>) => any
+  subjectGetter: (dataset: DataSet<any>) => any,
 ): void => {
   const testData = Object.values(datasets).map((dataset) => [subjectGetter(dataset), dataset.value])
   describe(testSuiteName, () => {
