@@ -33,7 +33,7 @@ export const mapSample = dataSetFactory(
     [1, 'one'],
     [2, 'two'],
   ]),
-  { isTruthy: true, isMap: true }
+  { isTruthy: true, isMap: true },
 )
 
 export const arrayEmpty = dataSetFactory([], { isTruthy: true, isArray: true })

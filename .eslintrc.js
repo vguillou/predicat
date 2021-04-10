@@ -1,13 +1,11 @@
 module.exports = {
   root: true,
-  plugins: [
-    'eslint-plugin-tsdoc',
-    'prettier',
-  ],
+  plugins: ['eslint-plugin-tsdoc', 'prettier'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
+    'prettier',
     'plugin:prettier/recommended',
   ],
   env: {
@@ -17,23 +15,14 @@ module.exports = {
   // ESLint will parse the code via TypeScript
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    project: "tsconfig.json"
+    project: 'tsconfig.json',
   },
   rules: {
     // TSDoc linting
     'tsdoc/syntax': 'error',
 
-    // Code formatting rules. See https://prettier.io/docs/en/options.html
-    'prettier/prettier': [
-      'warn',
-      {
-        semi: false,
-        tabWidth: 2,
-        arrowParens: 'always',
-        printWidth: 100,
-        singleQuote: true,
-      },
-    ],
+    // Code formatting rules. See ./prettierrc & https://prettier.io/docs/en/options.html
+    'prettier/prettier': 'warn',
 
     // Custom ESlint rules. See https://eslint.org/docs/rules/
     'no-param-reassign': [2, { props: true }],

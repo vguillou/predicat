@@ -27,16 +27,19 @@
 ## Installation
 
 Using NPM
+
 ```bash
 $ npm install predicat
 ```
 
 Or Yarn
+
 ```bash
 $ yarn add predicat
 ```
 
 Or directly to the HTML page right before the closing </body> tag:
+
 ```html
 <!-- ... other HTML ... -->
   <script src="https://unpkg.com/predicat/umd/predicat.js" crossorigin></script> <!-- When deploying, use predicat.min.js -->
@@ -46,9 +49,11 @@ Or directly to the HTML page right before the closing </body> tag:
 ## Usage
 
 ### Available Predicates and Type-Guards
+
 [See the detailed documentation here.](https://vguillou.github.io/predicat/latest/)
 
 ### Create your own predicate
+
 ```js
 // In JavaScript
 const hasStock = ({ stock }) => stock > 0;
@@ -63,6 +68,7 @@ const hasStock: Predicate<{ stock: number }> = ({ stock }) => stock > 0;
 ```
 
 ### Combine predicates
+
 ```js
 import { allOf, isNill, not, some } from 'predicat';
 

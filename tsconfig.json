@@ -10,37 +10,20 @@
     "strict": true,
     "module": "ESNext",
     "target": "ES5",
-    "lib": [
-      "ES5",
-      "ES2015"
-    ],
+    "lib": ["ES5", "ES2015"],
     "moduleResolution": "node",
     "allowJs": false,
     "esModuleInterop": true,
     "paths": {
-      "@src/*": [
-        "src/*"
-      ],
-      "@tests/*": [
-        "src/__tests__/*"
-      ],
-      "@mocks/*": [
-        "src/__mocks__/*"
-      ],
-      "@lib/*": [
-        "lib/*"
-      ]
+      "@src/*": ["src/*"],
+      "@tests/*": ["src/__tests__/*"],
+      "@mocks/*": ["src/__mocks__/*"],
+      "@lib/*": ["lib/*"]
     },
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "packages/*/build"
-  ]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "dist", "packages/*/build"]
 }
