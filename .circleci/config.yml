@@ -44,7 +44,7 @@ definitions:
     requires:
       - Lint
       - Test
-      - Upload test coverage
+      #- Upload test coverage
       - Scan for vulnerabilities
       - Build
       - Check bundle size
@@ -88,10 +88,10 @@ definitions:
       - Test:
           <<: *requires_dependencies
           <<: *context_slack
-      - Upload test coverage:
-          requires:
-            - Test
-          <<: *context_slack
+      #- Upload test coverage:
+      #    requires:
+      #      - Test
+      #    <<: *context_slack
       - Scan for vulnerabilities:
           <<: *filters_only_master
           <<: *requires_dependencies
@@ -120,11 +120,11 @@ definitions:
           <<: *filters_only_all_tags
           <<: *requires_dependencies
           <<: *context_slack
-      - Upload test coverage:
-          <<: *filters_only_all_tags
-          requires:
-            - Test
-          <<: *context_slack
+      #- Upload test coverage:
+      #    <<: *filters_only_all_tags
+      #    requires:
+      #      - Test
+      #    <<: *context_slack
       - Scan for vulnerabilities:
           <<: *filters_only_all_tags
           <<: *requires_dependencies
