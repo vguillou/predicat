@@ -3,7 +3,7 @@ version: 2.1
 orbs:
   node: circleci/node@4.2
   slack: circleci/slack@4.4
-  codecov: codecov/codecov@1.1
+  codecov: codecov/codecov@1.2
 
 definitions:
   const_path_working_directory: &const_path_working_directory /mnt/ramdisk
@@ -75,7 +75,9 @@ definitions:
       template: success_tagged_deploy_1
 
   job_defaults: &job_defaults
-    executor: node/default
+    executor:
+      name: node/default
+      tag: '14.17'
     working_directory: *const_path_working_directory
 
   workflow_build_test: &workflow_build_test
