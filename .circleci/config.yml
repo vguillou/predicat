@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  node: circleci/node@4.2
+  node: circleci/node@4.4
   slack: circleci/slack@4.4
   codecov: codecov/codecov@1.2
 
