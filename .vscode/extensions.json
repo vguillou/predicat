@@ -3,14 +3,14 @@
     "dbaeumer.vscode-eslint",
     "streetsidesoftware.code-spell-checker",
     "editorconfig.editorconfig",
-    "coenraads.bracket-pair-colorizer-2",
     "mhutchie.git-graph",
     "eamodio.gitlens",
+    "pflannery.vscode-versionlens",
     "techer.open-in-browser",
     "yzhang.markdown-all-in-one",
     "eriklynd.json-tools",
-    "ms-azuretools.vscode-docker",
-    "rbbit.typescript-hero"
+    "rbbit.typescript-hero",
+    "firsttris.vscode-jest-runner"
   ],
   "unwantedRecommendations": [
     "esbenp.prettier-vscode",
