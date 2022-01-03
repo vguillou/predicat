@@ -65,7 +65,7 @@
     "lint-staged": "^11.1.2",
     "lodash.camelcase": "^4.3.0",
     "lodash.capitalize": "^4.2.1",
-    "prettier": "^2.4.1",
+    "prettier": "^2.5.1",
     "retire": "^3.0.3",
     "rimraf": "^3.0.2",
     "rollup": "^2.58.0",
