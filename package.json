@@ -68,7 +68,7 @@
     "prettier": "^2.5.1",
     "retire": "^3.0.3",
     "rimraf": "^3.0.2",
-    "rollup": "^2.58.0",
+    "rollup": "^2.70.1",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.31.1",
     "standard-version": "^9.3.2",
