@@ -43,7 +43,7 @@
     "yarn:deduplicate": "npx yarn-deduplicate yarn.lock --strategy highest && yarn install"
   },
   "devDependencies": {
-    "@commitlint/cli": "^13.2.0",
+    "@commitlint/cli": "^16.2.4",
     "@commitlint/config-conventional": "^13.2.0",
     "@types/jest": "^27.0.2",
     "@types/node": "^14.17.20",
